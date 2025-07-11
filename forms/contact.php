@@ -1,41 +1,30 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+ob_start();
+if (
+    empty($_POST['name']) ||
+    empty($_POST['email']) ||
+    empty($_POST['contactno'])
+) {
+    die('Cannot proceed with empty inputs. Goback and retry');
+}
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+$client_email = 'priencekumar09@gmail.com';
+$project_name = 'test leads';
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+$name = htmlentities($_REQUEST['name']);
+$email = htmlentities($_REQUEST['email']);
+$contactno = htmlentities($_REQUEST['contactno']);
+$site_referrer = isset($_POST['site_referrer'])
+    ? $_POST['site_referrer']
+    : 'direct';
+$cid = $_POST['cid'] ?? '';
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+// var_dump($name, $email, $contactno, $site_referrer, $cid);
+// Google Sheet Integration - START
+require 'php-google-sheet/index.php';
+sendtoSheet('first sheet', $name, $email, $contactno, $site_referrer);
+// Google Sheet Integration - END
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
-
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
-
-  echo $contact->send();
+ header("Location:/thankyou.html");
+ ob_end_flush();
 ?>

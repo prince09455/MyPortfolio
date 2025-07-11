@@ -85,12 +85,23 @@ h6 {
 ------------------------------*/
 .php-email-form .error-message {
   display: none;
-  background: #df1529;
+  background:rgba(181, 247, 166,0.8);
   color: #ffffff;
   text-align: left;
   padding: 15px;
   margin-bottom: 24px;
   font-weight: 600;
+}
+.sec_form{
+  position: relative;
+}
+.msg_sec{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .php-email-form .sent-message {
@@ -453,6 +464,7 @@ h6 {
   [data-aos-delay] {
     transition-delay: 0 !important;
   }
+  
 }
 
 /*--------------------------------------------------------------
@@ -581,8 +593,11 @@ section,
 }
 
 .hero p span {
+  color:#3cff04;
+  font-weight: 700;
+  font-size: 28px;
   letter-spacing: 1px;
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 5px solid #3cff04;
 }
 
 .hero .social-links {
@@ -817,6 +832,7 @@ section,
 .portfolio .portfolio-content {
   position: relative;
   overflow: hidden;
+  max-height: 145px;
 }
 
 .portfolio .portfolio-content img {
@@ -1095,6 +1111,9 @@ section,
 @media (max-width: 575px) {
   .contact .php-email-form {
     padding: 20px;
+  }
+  .portfolio .portfolio-content{
+    max-height: 165px;
   }
 }
 

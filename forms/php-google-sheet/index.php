@@ -10,10 +10,10 @@ function myGetVisIpAddr()
     }
 }
 
-function sendtoSheet($sheet_name, $name, $email = 'No EMAIL', $phone, $source)
+function sendtoSheet($sheet_name, $name, $phone, $source, $email = null)
 {
     require __DIR__ . '/vendor/autoload.php';
-
+    $email = $email ?? 'No EMAIL';
     // Setup Authentication
     $client = new Google_Client();
     $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);

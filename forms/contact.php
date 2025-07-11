@@ -1,5 +1,7 @@
 <?php
-ob_start();
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING);
+
 if (
     empty($_POST['name']) ||
     empty($_POST['email']) ||
@@ -21,10 +23,12 @@ $cid = $_POST['cid'] ?? '';
 
 // var_dump($name, $email, $contactno, $site_referrer, $cid);
 // Google Sheet Integration - START
+
+var_dump($name, $email, $contactno, $site_referrer, $cid);
 require 'php-google-sheet/index.php';
 sendtoSheet('first sheet', $name, $email, $contactno, $site_referrer);
 // Google Sheet Integration - END
 
  header("Location:/thankyou.html");
- ob_end_flush();
+ 
 ?>
